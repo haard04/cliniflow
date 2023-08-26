@@ -3,6 +3,8 @@ from django.http import HttpResponse,FileResponse,Http404
 import os
 from django.contrib.auth.models import auth,User
 from django.contrib import messages
+from .forms import DiseaseMedicationForm
+from .models import Disease,Medication
 # Create your views here.
 def home(request):
     return render(request, 'home.html')
@@ -50,3 +52,34 @@ def doctor_custom(request):
 def staff_custom(request):
     # Your view logic for the staff panel in custom approach
     return render(request, 'staffCustom.html')
+
+from django.shortcuts import render, redirect
+from .forms import DiseaseMedicationForm
+from .models import Disease, Medication
+
+def add_disease_medication(request):
+    if request.method == 'POST':
+        form = DiseaseMedicationForm(request.POST)
+        if form.is_valid():
+            disease_name = form.cleaned_data['disease_name']
+            new_medications = form.cleaned_data['new_medications'].split(',')
+            
+            if disease_name:
+                disease, created = Disease.objects.get_or_create(name=disease_name)
+                for med_name in new_medications:
+                    med_name = med_name.strip()
+                    if med_name:
+                        medication, created = Medication.objects.get_or_create(name=med_name)
+                        disease.preset_medications.add(medication)
+            else:
+                disease = None
+            
+            return redirect('presets')
+    else:
+        form = DiseaseMedicationForm()
+    
+    return render(request, 'presets.html', {'form': form})
+
+def all_presets(request):
+    presets = Disease.objects.all()
+    return render(request, 'all_presets.html', {'presets': presets})

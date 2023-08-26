@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>All Presets</title>
+</head>
+<body>
+    <h1>All Presets</h1>
+    
+    <ul>
+        {% for preset in presets %}
+        <li>
+            <strong>{{ preset.name }}</strong>: Medications: 
+            {% for medication in preset.preset_medications.all %}
+                {{ medication.name }}{% if not forloop.last %}, {% endif %}
+            {% endfor %}
+        </li>
+        {% endfor %}
+    </ul>
+    
+</body>
+</html>

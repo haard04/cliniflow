@@ -11,6 +11,8 @@ urlpatterns = [
     path('sp/staff/', views.staff_speech, name='staff_speech'),
     path('ca/doc', views.doctor_custom, name='doctor_custom'),
     path('ca/staff/', views.staff_custom, name='staff_custom'),
+    path('presets/', views.add_disease_medication, name='presets'),
+    path('all/', views.all_presets, name='all_presets'),
 
 
 ]
