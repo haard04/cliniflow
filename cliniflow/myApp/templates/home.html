@@ -1,1 +1,61 @@
-<h1> Hello world</h1>
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{% block title %}CliniFlow{% endblock %}</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f7f7f7;
+        }
+        .navbar {
+            background-color: #333;
+            padding: 10px;
+            display: flex;
+            justify-content: space-between;
+        }
+        .navbar h1 {
+            color: #fff;
+            margin: 0;
+        }
+        .navbar a {
+            color: #fff;
+            text-decoration: none;
+            padding: 5px 10px;
+            border-radius: 5px;
+        }
+        .navbar a:hover {
+            background-color: #555;
+        }
+        .container {
+            padding: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <h1>CliniFlow</h1>
+        {% if user.is_authenticated %}
+        <a href="{% url 'logout' %}">Logout</a>
+        {% else %}
+            <a href="{% url 'login' %}">Login</a>
+        {% endif %}
+    </div>
+    <div class="container">
+        <div>
+            <a href="{% url 'sp' %}" class="grid-button">Speech Approach</a>
+            <a href="{% url 'ca' %}" class="grid-button">Custom Approach</a>
+        </div>
+        {% block content %}
+        {% endblock %}
+    </div>
+    
+    {% if user.is_authenticated %}
+    <h2>Welcome to CliniFlow, {{user.username}}</h2>
+    {% else %}
+    <h2>Welcome to CliniFlow</h2>
+    {% endif %}
+    <p>This is a platform to watch Doctor data</p>
+</body>
+</html>

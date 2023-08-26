@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Speech Approach</title>
+    <style>
+        /* Your CSS styles here */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f7f7f7;
+        }
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            padding: 20px;
+        }
+        .grid-button {
+            display: block;
+            padding: 10px 20px;
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+        .grid-button:hover {
+            background-color: #555;
+        }
+    </style>
+</head>
+<body>
+    <h2>Welcome to the Speech Approach</h2>
+    
+    <div class="grid-container">
+        <a href="{% url 'doctor_speech' %}" class="grid-button">Doctor Panel</a>
+        <a href="{% url 'staff_speech' %}" class="grid-button">Staff Panel</a>
+    </div>
+</body>
+</html>
